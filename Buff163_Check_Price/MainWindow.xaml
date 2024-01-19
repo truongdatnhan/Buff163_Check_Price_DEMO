@@ -1,0 +1,166 @@
+﻿<Window x:Class="Buff163_Check_Price.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Buff163_Check_Price" 
+        xmlns:local1="clr-namespace:Buff163_Check_Price.ViewModels"
+        xmlns:converters="clr-namespace:Buff163_Check_Price.Converters"
+        Title="Buff163 PriceChecker" Height="450" Width="800">
+    <Window.DataContext>
+        <local1:ItemViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <converters:ColorConvertor x:Key="ColorConverter"/>
+    </Window.Resources>
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Margin="0 10" Text="Login" FontWeight="Bold" />
+            <Button Command="{Binding OpenWebview}" Padding="3" Grid.Column="1" Content="Login"/>
+        </Grid>
+        <TextBlock Margin="0 10" Text="Search" FontWeight="Bold" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding NameSearch,UpdateSourceTrigger=PropertyChanged}" Padding="3" Grid.Column="0"  BorderBrush="Black" BorderThickness="2"/>
+            <Button Command="{Binding SearchName}" Padding="3" Grid.Column="1" Content="Search"/>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ListView MaxHeight="250" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Column="0" ItemsSource="{Binding SearchList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedItem}">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="0 10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox ItemsSource="{Binding WearRange,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" SelectedItem="{Binding WearRangeSelected, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="20"  Grid.Column="0">
+                            
+                        </ComboBox>
+                        <Grid Grid.Column="1">
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="4*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Margin="0 10" Text="Coin" FontWeight="Bold" Grid.Column="0" />
+                                    <TextBox Text="{Binding Coin,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}" Padding="3" Grid.Column="1"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="4*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Margin="0 10" Text="Rate" FontWeight="Bold" Grid.Column="0" />
+                                    <TextBox Text="{Binding RateEmpire,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}" Padding="3" Grid.Column="1"/>
+                                </Grid>
+                            </StackPanel>
+                            
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <StackPanel Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="0 10" Text="Name" FontWeight="Bold" Grid.Column="0" />
+                        <TextBox Text="{Binding SelectedItem.Name,UpdateSourceTrigger=PropertyChanged}" Padding="3" Grid.Column="1" IsEnabled="False"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="0 10" Text="Float" FontWeight="Bold" Grid.Column="0" />
+                        <TextBox Padding="3" Grid.Column="1" Text="{Binding Wear,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="0 10" Text="Price" FontWeight="Bold" Grid.Column="0" />
+                        <TextBox Padding="3" Grid.Column="1" Text="{Binding Price,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="0 10" Text="CNY Rate" FontWeight="Bold" Grid.Column="0" />
+                        <TextBox Text="{Binding Rate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N3}" Padding="3" Grid.Column="1"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="0,10,0,10" Text="Total" FontWeight="Bold" Grid.Column="0" Grid.ColumnSpan="2" />
+                        <TextBox Padding="3" Text="{Binding Total,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" IsEnabled="False"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0">
+                <Hyperlink  NavigateUri= "https://bit.ly/3h4MsRK" RequestNavigate="Hyperlink_RequestNavigate">
+                    <TextBlock Text="Donate me" />
+                </Hyperlink>
+            </Label>
+            <TextBlock Grid.Column="1" Text="{Binding Profit}" Foreground="{Binding Profit, Converter={StaticResource ColorConverter}}" Margin="0 10" FontWeight="Bold"  />
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Margin="0,5" Text="Contact me" FontWeight="Bold"/>
+                <Label Grid.Column="1">
+                    <Hyperlink NavigateUri= "https://www.facebook.com/nhantruong082/" RequestNavigate="Hyperlink_RequestNavigate">
+                        <TextBlock Text="Facebook" />
+                    </Hyperlink>
+                </Label>
+                <Label Grid.Column="2">
+                    <Hyperlink NavigateUri= "https://github.com/truongdatnhan/" RequestNavigate="Hyperlink_RequestNavigate">
+                        <TextBlock Text="Github" />
+                    </Hyperlink>
+                </Label>
+            </Grid>
+        </Grid>
+    </StackPanel>
+
+</Window>

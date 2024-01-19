@@ -1,0 +1,18 @@
+﻿<Window x:Class="Buff163_Check_Price.Views.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Buff163_Check_Price.Views"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:viewmodels="clr-namespace:Buff163_Check_Price.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewmodels:ItemViewModel}"
+        mc:Ignorable="d"
+        Name="LoginView"
+        Title="Login" Height="450" Width="800">
+    <DockPanel>
+        <Button Command="{Binding GetCookies}" CommandParameter="{Binding ElementName=LoginView}" DockPanel.Dock="Top" Content="Login" />
+        <wv2:WebView2 Name="webView"
+                  Source="https://buff.163.com/"/>
+    </DockPanel>
+</Window>
